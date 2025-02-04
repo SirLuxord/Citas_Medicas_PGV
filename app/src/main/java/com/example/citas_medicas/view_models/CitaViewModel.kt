@@ -7,7 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.citas_medicas.BD_Room.CitasBD
 import com.example.citas_medicas.BD_Room.ConsultasCitas
-import com.example.citas_medicas.models.CitaMedica
+import com.example.citas_medicas.BD_Room.models.CitaMedica
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch

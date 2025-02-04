@@ -18,6 +18,7 @@ import com.example.citas_medicas.adapter.CitaAdapter
 import com.example.citas_medicas.databinding.ActivityMainBinding
 import com.example.citas_medicas.fragments.citas_fragments.FragmentCrearCita
 import com.example.citas_medicas.fragments.citas_fragments.FragmentListaCitas
+import com.example.citas_medicas.grabaciones.GrabacionesActivity
 import com.example.citas_medicas.view_models.CitaViewModel
 import com.google.android.material.navigation.NavigationView
 
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-//        setupDrawer()
+        setupDrawer()
 
         if (savedInstanceState == null) {
             loadFragment(FragmentListaCitas())
@@ -49,19 +50,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun setupDrawer() {
-//        // Configurar la navegación en el Drawer
-//        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.nav_citas -> startActivity(Intent(this, MainActivity::class.java))
-//                R.id.nav_grabaciones -> startActivity(Intent(this, GrabacionesActivity::class.java))
-//                R.id.nav_funcionalidades -> startActivity(Intent(this, FuncionalidadesActivity::class.java))
-//                R.id.nav_logout -> logout()
-//            }
-//            binding.main.closeDrawer(GravityCompat.START)
-//            true
-//        }
-//    }
+    private fun setupDrawer() {
+        // Configurar la navegación en el Drawer
+        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_citas -> startActivity(Intent(this, MainActivity::class.java))
+                R.id.nav_grabaciones -> startActivity(Intent(this, GrabacionesActivity::class.java))
+                //R.id.nav_funcionalidades -> startActivity(Intent(this, FuncionalidadesActivity::class.java))
+                R.id.nav_logout -> logout()
+            }
+            binding.main.closeDrawer(GravityCompat.START)
+            true
+        }
+    }
 
     private fun logout() {
         // Implementar lógica de cierre de sesión

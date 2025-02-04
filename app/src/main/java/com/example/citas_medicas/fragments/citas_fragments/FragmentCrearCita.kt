@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.citas_medicas.R
 import com.example.citas_medicas.databinding.FragmentCrearCitaBinding
-import com.example.citas_medicas.models.CitaMedica
+import com.example.citas_medicas.BD_Room.models.CitaMedica
 import com.example.citas_medicas.view_models.CitaViewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.util.Calendar

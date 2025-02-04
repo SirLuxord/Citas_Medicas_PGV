@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.citas_medicas.models.CitaMedica
+import com.example.citas_medicas.BD_Room.models.CitaMedica
 
 @Database(entities = [CitaMedica::class], version = 1, exportSchema = false)
 abstract class CitasBD : RoomDatabase() {
 
-    abstract fun citaDao(): CitaDao  // Aquí debe devolver CitaDao, no CitasBD
+    abstract fun citaDao(): CitaDao
 
     companion object {
         @Volatile
@@ -21,7 +21,8 @@ abstract class CitasBD : RoomDatabase() {
                     context.applicationContext,
                     CitasBD::class.java,
                     "citas_db"
-                ).build()
+                ).fallbackToDestructiveMigration() // 👈 IMPORTANTE para evitar errores de migración
+                    .build()
                 INSTANCE = instance
                 instance
             }

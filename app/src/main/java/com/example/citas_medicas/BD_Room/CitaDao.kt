@@ -1,7 +1,7 @@
 package com.example.citas_medicas.BD_Room
 
 import androidx.room.*
-import com.example.citas_medicas.models.CitaMedica
+import com.example.citas_medicas.BD_Room.models.CitaMedica
 
 @Dao
 interface CitaDao {

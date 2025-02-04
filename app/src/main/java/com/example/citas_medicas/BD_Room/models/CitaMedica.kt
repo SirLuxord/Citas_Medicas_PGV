@@ -1,4 +1,4 @@
-package com.example.citas_medicas.models
+package com.example.citas_medicas.BD_Room.models
 
 
 import androidx.room.ColumnInfo

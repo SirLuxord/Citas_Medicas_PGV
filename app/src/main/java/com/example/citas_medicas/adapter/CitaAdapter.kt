@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.citas_medicas.databinding.ItemCitaBinding
-import com.example.citas_medicas.models.CitaMedica
+import com.example.citas_medicas.BD_Room.models.CitaMedica
 
 class CitaAdapter(private val onCloseClick: (CitaMedica) -> Unit) : RecyclerView.Adapter<CitaAdapter.CitaViewHolder>() {
 

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services") version "4.4.2"
     id("com.google.devtools.ksp") version "2.0.21-1.0.27" apply false
+    id("kotlin-kapt")
 }
 
 android {
@@ -37,57 +38,31 @@ android {
     viewBinding {
         enable = true
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 
 
 dependencies {
-    implementation(libs.androidx.fragment.ktx) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(libs.lifecycle.viewmodel.ktx) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(libs.room.runtime) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(libs.room.ktx) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(libs.androidx.room.compiler.v250) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(platform(libs.firebase.bom)) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(libs.firebase.auth.ktx) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(libs.androidx.core.ktx) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(libs.androidx.appcompat) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(libs.material) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(libs.androidx.activity) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    implementation(libs.androidx.constraintlayout) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
+    kapt(libs.androidx.room.compiler.v250)
+
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    testImplementation(libs.junit) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    androidTestImplementation(libs.androidx.junit) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
-    androidTestImplementation(libs.androidx.espresso.core) {
-        exclude(group = "com.intellij", module = "annotations")
-    }
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
 

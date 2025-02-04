@@ -1,6 +1,6 @@
 package com.example.citas_medicas.BD_Room
 
-import com.example.citas_medicas.models.CitaMedica
+import com.example.citas_medicas.BD_Room.models.CitaMedica
 import kotlinx.coroutines.flow.Flow
 
 class ConsultasCitas (private val citaDao: CitaDao, private val emailUsuario: String) {
