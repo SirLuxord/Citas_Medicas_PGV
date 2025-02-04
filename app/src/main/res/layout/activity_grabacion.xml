@@ -73,12 +73,12 @@
             android:layout_width="283dp"
             android:layout_height="25dp"
             android:layout_margin="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0dp"
             android:max="200"
             android:progress="100"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/fabPlay" />
+            app:layout_constraintStart_toEndOf="@+id/fabPlay"
+            app:layout_constraintTop_toBottomOf="@+id/velocidadView" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabPlay"
@@ -96,8 +96,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="29dp"
+            android:layout_marginBottom="84dp"
             android:text="Velocidad"
-            app:layout_constraintBottom_toTopOf="@+id/seekBarSpeed"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/fabPlay" />
