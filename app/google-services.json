@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "263849572779",
+    "project_id": "citasmedicaspgl",
+    "storage_bucket": "citasmedicaspgl.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263849572779:android:ada9dc4bdaa0801c483aee",
+        "android_client_info": {
+          "package_name": "com.example.citas_medicas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp7m95qECL30FgxC38u2YgLd3IIfTZIrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

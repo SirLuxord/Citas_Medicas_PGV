@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/nav_citas"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="Citas médicas"/>
+        <item
+            android:id="@+id/nav_grabaciones"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="Grabadora de audio" />
+        <item
+            android:id="@+id/nav_funcionalidades"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:title="Funcionalidades"
+            />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:title="Cerrar sesión"
+            />
+    </group>
+</menu>
