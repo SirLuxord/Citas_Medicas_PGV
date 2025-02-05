@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_resolution">
+
+    <fragment
+        android:id="@+id/fragment_resolution"
+        android:name="com.example.citas_medicas.fragments.funcionalidades_fragments.ResolutionFragment"
+        android:label="FragmentListaCitas"
+        tools:layout="@layout/fragment_lista_citas" />
+
+    <fragment
+        android:id="@+id/fragment_broadcast_carga"
+        android:name="com.example.citas_medicas.fragments.funcionalidades_fragments.BroadcastCarga"
+        android:label="FragmentCrearCita"
+        tools:layout="@layout/fragment_crear_cita" />
+
+    <fragment
+        android:id="@+id/fragment_light_sensor"
+        android:name="com.example.citas_medicas.fragments.funcionalidades_fragments.LightSensorFragment"
+        android:label="FragmentCrearCita"
+        tools:layout="@layout/fragment_crear_cita" />
+
+    <fragment
+        android:id="@+id/fragment_location"
+        android:name="com.example.citas_medicas.fragments.funcionalidades_fragments.LocationFragment"
+        android:label="FragmentCrearCita"
+        tools:layout="@layout/fragment_crear_cita" />
+
+</navigation>

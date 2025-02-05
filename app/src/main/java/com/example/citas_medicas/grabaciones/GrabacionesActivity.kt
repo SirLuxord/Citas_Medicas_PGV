@@ -11,9 +11,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import com.example.citas_medicas.MainActivity
 import com.example.citas_medicas.R
 import com.example.citas_medicas.databinding.ActivityGrabacionBinding
+import com.example.citas_medicas.funcionalidades.FuncionalidadesActivity
+import com.example.citas_medicas.login_firebase.LoginActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import java.io.IOException
 
 class GrabacionesActivity : AppCompatActivity() {
@@ -38,6 +43,7 @@ class GrabacionesActivity : AppCompatActivity() {
         fileName = "${externalCacheDir?.absolutePath}/grabacion.3gp"
 
         checkPermissions()
+        setupDrawer()
 
         binding.btnRecord.setOnClickListener { toggleRecording() }
         binding.fabPlay.setOnClickListener { playRecording() }
@@ -138,5 +144,34 @@ class GrabacionesActivity : AppCompatActivity() {
         if (permissionsRequired.any { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }) {
             ActivityCompat.requestPermissions(this, permissionsRequired, REQUEST_RECORD_AUDIO_PERMISSION)
         }
+    }
+
+    private fun setupDrawer() {
+        // Configurar la navegación en el Drawer
+        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_citas -> startActivity(Intent(this, MainActivity::class.java))
+                R.id.nav_grabaciones -> startActivity(Intent(this, GrabacionesActivity::class.java))
+                R.id.nav_funcionalidades -> startActivity(Intent(this, FuncionalidadesActivity::class.java))
+                R.id.nav_logout -> logout()
+            }
+            binding.main.closeDrawer(GravityCompat.START)
+            true
+        }
+    }
+
+    private fun logout() {
+        // Cerrar sesión en Firebase
+        FirebaseAuth.getInstance().signOut()
+
+        // Mostrar un mensaje de Toast para informar al usuario
+        Toast.makeText(this, "Cerrando sesión...", Toast.LENGTH_SHORT).show()
+
+        // Redirigir al usuario a la actividad de login
+        val intent = Intent(this, LoginActivity::class.java) // Asegúrate de que LoginActivity sea el nombre de tu actividad de login
+        startActivity(intent)
+
+        // Finalizar la actividad actual
+        finish()
     }
 }

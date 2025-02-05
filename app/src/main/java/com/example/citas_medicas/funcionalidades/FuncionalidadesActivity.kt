@@ -1,4 +1,4 @@
-package com.example.citas_medicas
+package com.example.citas_medicas.funcionalidades
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,24 +6,22 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.example.citas_medicas.adapter.CitaAdapter
-import com.example.citas_medicas.databinding.ActivityMainBinding
-import com.example.citas_medicas.funcionalidades.FuncionalidadesActivity
+import com.example.citas_medicas.MainActivity
+import com.example.citas_medicas.R
+import com.example.citas_medicas.databinding.ActivityFuncionalidadesBinding
 import com.example.citas_medicas.grabaciones.GrabacionesActivity
 import com.example.citas_medicas.login_firebase.LoginActivity
-import com.example.citas_medicas.view_models.CitaViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity() {
+class FuncionalidadesActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityFuncionalidadesBinding
     private lateinit var navController: NavController
 
 
@@ -31,20 +29,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityFuncionalidadesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_funcionalidades) as NavHostFragment
         navController = navHostFragment.navController
 
         setSupportActionBar(binding.toolbar)
         setupDrawer()
 
         if (savedInstanceState == null) {
-            navController.navigate(R.id.fragment_lista_citas)
+            navController.navigate(R.id.fragment_resolution)
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.funcionalidades)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -60,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_funcionalidades -> startActivity(Intent(this, FuncionalidadesActivity::class.java))
                 R.id.nav_logout -> logout()
             }
-            binding.main.closeDrawer(GravityCompat.START)
+            binding.funcionalidades.closeDrawer(GravityCompat.START)
             true
         }
     }
@@ -81,22 +79,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.list_menu, menu)
+        menuInflater.inflate(R.menu.funcionalidades_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.citasListItem -> {
-                navController.navigate(R.id.fragment_lista_citas)  // Usar el navController ya inicializado
+            R.id.resolutionListItem -> {
+                navController.navigate(R.id.fragment_resolution)
                 true
             }
-            R.id.crearCitaItem -> {
-                navController.navigate(R.id.fragment_crear_cita)  // Usar el navController ya inicializado
+            R.id.broadcastListItem -> {
+                navController.navigate(R.id.fragment_broadcast_carga)
+                true
+            }
+            R.id.lightSensorListItem -> {
+                navController.navigate(R.id.fragment_light_sensor)
+                true
+            }
+            R.id.locationListItem -> {
+                navController.navigate(R.id.fragment_location)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 }
-

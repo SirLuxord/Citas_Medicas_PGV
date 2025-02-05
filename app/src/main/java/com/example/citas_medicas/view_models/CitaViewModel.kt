@@ -43,7 +43,7 @@ class CitaViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // Obtener el email del usuario autenticado (o un valor por defecto)
+    // Obtener el email del usuario autenticado
     private fun obtenerEmailUsuario(): String {
         val usuario = FirebaseAuth.getInstance().currentUser
         return usuario?.email ?: "desconocido@example.com"  // Valor por defecto si no hay usuario autenticado
