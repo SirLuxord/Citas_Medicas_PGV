@@ -40,7 +40,6 @@ class GrabacionesActivity : AppCompatActivity() {
         checkPermissions()
 
         binding.btnRecord.setOnClickListener { toggleRecording() }
-        binding.btnPause.setOnClickListener { pauseRecording() }
         binding.fabPlay.setOnClickListener { playRecording() }
 
         binding.seekBarVolume.setOnSeekBarChangeListener(volumeChangeListener)
@@ -73,21 +72,6 @@ class GrabacionesActivity : AppCompatActivity() {
             } catch (e: IOException) {
                 Toast.makeText(this@GrabacionesActivity, "Error al grabar", Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    private fun pauseRecording() {
-        if (isRecording) {
-            if (isPaused) {
-                mediaRecorder?.resume()
-                binding.btnPause.text = "Pausar"
-                Snackbar.make(binding.root, "Grabación reanudada", Snackbar.LENGTH_SHORT).show()
-            } else {
-                mediaRecorder?.pause()
-                binding.btnPause.text = "Reanudar"
-                Snackbar.make(binding.root, "Grabación pausada", Snackbar.LENGTH_SHORT).show()
-            }
-            isPaused = !isPaused
         }
     }
 

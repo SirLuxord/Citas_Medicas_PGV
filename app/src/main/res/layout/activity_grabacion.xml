@@ -30,10 +30,6 @@
             app:title="Grabaciones"
             app:titleTextColor="?attr/colorOnPrimary" />
 
-        <!-- Botón para grabar -->
-
-        <!-- Botón para reproducir -->
-
 
         <Button
             android:id="@+id/btnRecord"
@@ -45,16 +41,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-        <Button
-            android:id="@+id/btnPause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="Pausar"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnRecord" />
 
         <SeekBar
             android:id="@+id/seekBarVolume"
@@ -107,11 +93,11 @@
             android:id="@+id/VolumenView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="100dp"
             android:text="Volumen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnPause" />
+            app:layout_constraintTop_toBottomOf="@+id/btnRecord" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

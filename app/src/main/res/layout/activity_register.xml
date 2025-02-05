@@ -10,6 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
         android:text="Registrarse"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -17,34 +18,44 @@
 
     <EditText
         android:id="@+id/registerEmail"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_width="250dp"
         android:layout_height="56dp"
         android:inputType="textEmailAddress"
         android:hint="email"/>
 
     <EditText
         android:id="@+id/registerPassword"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_width="250dp"
         android:layout_height="56dp"
         android:inputType="textPassword"
         android:hint="password"/>
 
     <EditText
         android:id="@+id/registerRepeatPassword"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_width="250dp"
         android:layout_height="56dp"
         android:inputType="textPassword"
         android:hint="repeat password"/>
-    
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Registrarse"/>
 
     <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/registerButton"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:text="Registrarse" />
+
+    <Button
+        android:layout_marginTop="170dp"
         android:id="@+id/registerGoLoginButton"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:text="Ya tengo una cuenta"/>
 
