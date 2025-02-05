@@ -11,22 +11,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
-import com.example.citas_medicas.BD_Room.CitasBD
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.citas_medicas.adapter.CitaAdapter
 import com.example.citas_medicas.databinding.ActivityMainBinding
-import com.example.citas_medicas.fragments.citas_fragments.FragmentCrearCita
-import com.example.citas_medicas.fragments.citas_fragments.FragmentListaCitas
 import com.example.citas_medicas.grabaciones.GrabacionesActivity
 import com.example.citas_medicas.view_models.CitaViewModel
-import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private val citaViewModel: CitaViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: CitaAdapter
+    private lateinit var navController: NavController
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +31,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+
         setSupportActionBar(binding.toolbar)
         setupDrawer()
 
         if (savedInstanceState == null) {
-            loadFragment(FragmentListaCitas())
+            navController.navigate(R.id.fragment_lista_citas)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -54,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         // Configurar la navegación en el Drawer
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_citas -> startActivity(Intent(this, MainActivity::class.java))
+                R.id.nav_citas -> navController.navigate(R.id.fragment_lista_citas)
                 R.id.nav_grabaciones -> startActivity(Intent(this, GrabacionesActivity::class.java))
                 //R.id.nav_funcionalidades -> startActivity(Intent(this, FuncionalidadesActivity::class.java))
                 R.id.nav_logout -> logout()
@@ -78,22 +76,15 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.citasListItem -> {
-                loadFragment(FragmentListaCitas())
+                navController.navigate(R.id.fragment_lista_citas)  // Usar el navController ya inicializado
                 true
             }
             R.id.crearCitaItem -> {
-                loadFragment(FragmentCrearCita())
+                navController.navigate(R.id.fragment_crear_cita)  // Usar el navController ya inicializado
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun loadFragment(fragment: Fragment) {
-        // Cargar el fragmento dentro del FragmentContainerView
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
     }
 }
 
