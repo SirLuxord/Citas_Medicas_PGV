@@ -3,6 +3,7 @@ package com.example.citas_medicas.fragments.citas_fragments
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.citas_medicas.BD_Room.models.CitaMedica
 import com.example.citas_medicas.R
 import com.example.citas_medicas.databinding.FragmentCrearCitaBinding
-import com.example.citas_medicas.BD_Room.models.CitaMedica
 import com.example.citas_medicas.view_models.CitaViewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.util.Calendar
 
-
-class FragmentCrearCita : Fragment(R.layout.fragment_crear_cita) {
+class FramentoModificarCita : Fragment(R.layout.fragment_crear_cita) {
 
     private var _binding: FragmentCrearCitaBinding? = null
     private val binding get() = _binding!! // Acceder de forma segura a binding
@@ -35,8 +37,25 @@ class FragmentCrearCita : Fragment(R.layout.fragment_crear_cita) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("Este es otro, el de crear cita view fragmento")
-        binding.crearCitaButton.setOnClickListener { crearCita() }
+        println(citaViewModel.citaSeleccionada.value?.titulo + "Este es el titulo del fragmento")
+        binding.crearCitaButton.setText("Modificar cita")
+        binding.citaEditText.setText(citaViewModel.citaSeleccionada.value?.titulo)
+        binding.dateEditText.setText(citaViewModel.citaSeleccionada.value?.fecha)
+        binding.timeEditText.setText(citaViewModel.citaSeleccionada.value?.hora)
+
+        // Observar la cita seleccionada
+        citaViewModel.citaSeleccionada.observe(viewLifecycleOwner, Observer { cita ->
+            if (cita != null) {
+                // Llenamos los campos con la cita seleccionada
+                binding.citaEditText.setText(cita.titulo)
+                binding.dateEditText.setText(cita.fecha)
+                binding.timeEditText.setText(cita.hora)
+            } else {
+                Log.d("Cita", "No hay cita seleccionada")
+            }
+        })
+
+        binding.crearCitaButton.setOnClickListener { modificarCita() }
         binding.dateEditText.setOnClickListener { mostrarDatePicker() }
         binding.timeEditText.setOnClickListener { mostrarTimePicker() }
     }
@@ -69,22 +88,23 @@ class FragmentCrearCita : Fragment(R.layout.fragment_crear_cita) {
         timePicker.show()
     }
 
-    private fun crearCita() {
+    private fun modificarCita() {
         val titulo = binding.citaEditText.text?.toString()?.trim() ?: ""
         val fecha = binding.dateEditText.text?.toString()?.trim() ?: ""
         val hora = binding.timeEditText.text?.toString()?.trim() ?: ""
         val email = obtenerEmailUsuario()
 
         if (titulo.isNotEmpty() && fecha.isNotEmpty() && hora.isNotEmpty() && email.isNotEmpty()) {
-            val nuevaCita = CitaMedica(
-                email = email,
+            val citaModificada = CitaMedica(
+                id = citaViewModel.citaSeleccionada.value?.id ?: 0,
                 titulo = titulo,
                 fecha = fecha,
-                hora = hora
+                hora = hora,
+                email = email
             )
+            citaViewModel.modificarCita(citaModificada)
 
-            citaViewModel.insertarCita(nuevaCita)
-            Toast.makeText(requireContext(), "Cita creada con éxito", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Se ha modificado la cita con éxito", Toast.LENGTH_SHORT).show()
 
             val navController = findNavController()
             navController.navigate(R.id.fragment_lista_citas)

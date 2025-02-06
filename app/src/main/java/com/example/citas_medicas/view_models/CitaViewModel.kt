@@ -3,6 +3,7 @@ package com.example.citas_medicas.view_models
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.citas_medicas.BD_Room.CitasBD
@@ -18,9 +19,16 @@ class CitaViewModel(application: Application) : AndroidViewModel(application) {
     private val db = CitasBD.getDatabase(application)  // Acceder a la base de datos
     private val emailUsuario: String = obtenerEmailUsuario()  // Obtener el email del usuario autenticado
     private val consultasCitas: ConsultasCitas = ConsultasCitas(db.citaDao(), emailUsuario)  // Usar ConsultasCitas para acceder a los datos
+    private val _citaSeleccionada = MutableLiveData<CitaMedica?>()
+    val citaSeleccionada: LiveData<CitaMedica?> get() = _citaSeleccionada
 
     // Esta propiedad ahora expone el Flow de todas las citas
     val todasLasCitas: Flow<List<CitaMedica>> = consultasCitas.todasLasCitas
+
+    fun seleccionarCita(cita: CitaMedica) {
+        _citaSeleccionada.value = cita
+        println(cita.titulo + "Este es el titulo original de la cita")
+    }
 
     // Insertar una cita
     fun insertarCita(cita: CitaMedica) {
@@ -30,7 +38,7 @@ class CitaViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // Actualizar una cita
-    fun actualizarCita(cita: CitaMedica) {
+    fun modificarCita(cita: CitaMedica) {
         viewModelScope.launch {
             consultasCitas.actualizar(cita)
         }
