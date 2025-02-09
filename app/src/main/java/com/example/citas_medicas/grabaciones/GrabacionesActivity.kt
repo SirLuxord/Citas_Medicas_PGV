@@ -8,6 +8,7 @@ import android.media.MediaRecorder
 import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -28,9 +29,9 @@ class GrabacionesActivity : AppCompatActivity() {
     private var mediaPlayer: MediaPlayer? = null
     private var fileName: String? = null
     private var isRecording = false
-    private var isPaused = false
     private val permissionsRequired = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     private val REQUEST_RECORD_AUDIO_PERMISSION = 200
+    private var storedSpeed = 1.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,15 +97,16 @@ class GrabacionesActivity : AppCompatActivity() {
             mediaPlayer!!.stop()
             mediaPlayer!!.release()
             mediaPlayer = null
-            binding.fabPlay.setImageResource(android.R.drawable.ic_media_play) // Cambia el ícono a "play"
+            binding.fabPlay.setImageResource(android.R.drawable.ic_media_play)
             Toast.makeText(this@GrabacionesActivity, "Reproducción detenida", Toast.LENGTH_SHORT).show()
         } else {
-            // Si no está reproduciendo, iniciar la reproducción
+
             mediaPlayer = MediaPlayer().apply {
                 try {
                     setDataSource(fileName)
                     prepare()
                     setVolume(binding.seekBarVolume.progress / 100f, binding.seekBarVolume.progress / 100f)
+                    playbackParams = playbackParams.setSpeed(storedSpeed)
                     start()
                     binding.fabPlay.setImageResource(android.R.drawable.ic_media_pause) // Cambia el ícono a "pause"
                     Toast.makeText(this@GrabacionesActivity, "Reproduciendo...", Toast.LENGTH_SHORT).show()
@@ -124,7 +126,8 @@ class GrabacionesActivity : AppCompatActivity() {
 
     private val volumeChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            mediaPlayer?.setVolume(progress / 100f, progress / 100f)
+            val volume = progress / 100f
+            mediaPlayer?.setVolume(volume, volume)
         }
         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
         override fun onStopTrackingTouch(seekBar: SeekBar?) {}
@@ -132,8 +135,9 @@ class GrabacionesActivity : AppCompatActivity() {
 
     private val speedChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            if (mediaPlayer != null && mediaPlayer!!.isPlaying) { // Verifica si está reproduciendo
-                mediaPlayer!!.playbackParams = mediaPlayer!!.playbackParams.setSpeed(progress / 100f)
+            storedSpeed = progress / 100f
+            if (mediaPlayer != null && mediaPlayer!!.isPlaying) {
+                mediaPlayer!!.playbackParams = mediaPlayer!!.playbackParams.setSpeed(storedSpeed)
             }
         }
         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -154,10 +158,43 @@ class GrabacionesActivity : AppCompatActivity() {
                 R.id.nav_grabaciones -> startActivity(Intent(this, GrabacionesActivity::class.java))
                 R.id.nav_funcionalidades -> startActivity(Intent(this, FuncionalidadesActivity::class.java))
                 R.id.nav_logout -> logout()
+                R.id.nav_aboutUs -> {
+                    // Mostrar información sobre CineApp
+                    mostrarAcercaDe()
+                }
+                R.id.nav_exit -> {
+                    // Cerrar aplicación
+                    salirAplicacion()
+                }
             }
             binding.main.closeDrawer(GravityCompat.START)
             true
         }
+    }
+
+    private fun mostrarAcercaDe() {
+        val message = """
+        Versión 1.0
+        Creador: Haendel
+        Descripción: La aplicación VCA es una herramienta multifuncional que ofrece tres actividades principales:
+        - Concertar citas médicas.
+        - Realizar grabaciones de audio.
+        - Consultar y administrar funcionalidades del dispositivo.
+
+        Gracias por usar nuestra aplicación.
+    """.trimIndent()
+
+        AlertDialog.Builder(this)
+            .setTitle("Acerca de CitasMédicasApp")
+            .setMessage(message)
+            .setPositiveButton("Cerrar") { dialog, _ -> dialog.dismiss() }
+            .create()
+            .show()
+    }
+
+    private fun salirAplicacion() {
+        finishAffinity()
+        System.exit(0)
     }
 
     private fun logout() {

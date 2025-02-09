@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
@@ -57,10 +58,43 @@ class FuncionalidadesActivity : AppCompatActivity() {
                 R.id.nav_grabaciones -> startActivity(Intent(this, GrabacionesActivity::class.java))
                 R.id.nav_funcionalidades -> startActivity(Intent(this, FuncionalidadesActivity::class.java))
                 R.id.nav_logout -> logout()
+                R.id.nav_aboutUs -> {
+                    // Mostrar información sobre CineApp
+                    mostrarAcercaDe()
+                }
+                R.id.nav_exit -> {
+                    // Cerrar aplicación
+                    salirAplicacion()
+                }
             }
-            binding.funcionalidades.closeDrawer(GravityCompat.START)
+            binding.root.closeDrawer(GravityCompat.START)
             true
         }
+    }
+
+    private fun mostrarAcercaDe() {
+        val message = """
+        Versión 1.0
+        Creador: Haendel
+        Descripción: La aplicación VCA es una herramienta multifuncional que ofrece tres actividades principales:
+        - Concertar citas médicas.
+        - Realizar grabaciones de audio.
+        - Consultar y administrar funcionalidades del dispositivo.
+
+        Gracias por usar nuestra aplicación.
+    """.trimIndent()
+
+        AlertDialog.Builder(this)
+            .setTitle("Acerca de CitasMédicasApp")
+            .setMessage(message)
+            .setPositiveButton("Cerrar") { dialog, _ -> dialog.dismiss() }
+            .create()
+            .show()
+    }
+
+    private fun salirAplicacion() {
+        finishAffinity()
+        System.exit(0)
     }
 
     private fun logout() {

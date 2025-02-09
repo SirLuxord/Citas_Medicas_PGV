@@ -4,21 +4,30 @@
     <group>
         <item
             android:id="@+id/nav_citas"
-            android:icon="@android:drawable/ic_menu_manage"
+            android:icon="@android:drawable/ic_menu_agenda"
             android:title="Citas médicas"/>
         <item
             android:id="@+id/nav_grabaciones"
-            android:icon="@android:drawable/ic_menu_info_details"
+            android:icon="@android:drawable/ic_btn_speak_now"
             android:title="Grabadora de audio" />
         <item
             android:id="@+id/nav_funcionalidades"
-            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:icon="@android:drawable/ic_menu_manage"
             android:title="Funcionalidades"
             />
         <item
             android:id="@+id/nav_logout"
-            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:icon="@android:drawable/ic_dialog_email"
             android:title="Cerrar sesión"
+            />
+        <item
+            android:id="@+id/nav_aboutUs"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="Acerca de Cit.Médic.App" />
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:title="Salir"
             />
     </group>
 </menu>
